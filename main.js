@@ -14,12 +14,18 @@ class arbolBinario{
     preorderRestulado(expresion){
         let aux;
         let expRes = [];
+        let expA=[];
         for(let i=0; i<expresion.length; i++){
-            aux = expresion.pop();
-            if(isNaN(expresion[aux])){
-                expRes.push(aux);
+            expA[i] = !isNaN(expresion[i]) ? parseInt(expresion[i]) : expresion[i];
+        }
+        console.log(expA);
+        return 1;
+        for(let i=expA.length-1; i>0; i--){
+            if(!isNaN(expA[expA.length-1])){
+                expRes.push(expA.pop());
             }else{
-                expRes.push(this.operacion(aux, expRes.pop(), expRes.pop()))
+                aux = expA.pop();
+                expRes.push(this.operacion(aux, expA.pop(), expA.pop()))
             }
         }
         return expRes[0];
@@ -37,9 +43,10 @@ class arbolBinario{
             }
         }
         return expRes[0];
-    }
+    } 
 
     operacion(operador, n1, n2){
+        console.log(n1)
         if(operador === '/'){
             return n1/n2;
         }else if(operador === '*'){
@@ -50,3 +57,7 @@ class arbolBinario{
         return n1-n2;
     }
 }
+
+let arbol = new arbolBinario();
+
+arbol.preorderRestulado('+--3*42/*6396');
