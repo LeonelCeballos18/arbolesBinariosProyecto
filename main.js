@@ -1,14 +1,56 @@
 class nodo{
-
+    constructor(nuevo){
+        this.nuevo = nuevo; 
+        this.hizq = null; 
+        this.hder = null; 
+    }
 }
 
 class arbolBinario{
-    preorder(){
-
+    constructor(){
+        this.raiz = null; 
     }
 
-    postorder(){
-        
+    agregar(nuevo){
+        if(this.raiz === null){
+            this.raiz = nuevo; 
+        }else{
+            this._agregar(nuevo, this.raiz)
+        }
+    }
+
+    _agregar(nuevo, nodox){
+        if(nuevo < nodox.nuevo){
+            if(nodox.hizq === null){
+                nodox.hizq = nuevo; 
+            }else{
+                this._agregar(nuevo, nodox.hizq);
+            }
+        }else{
+            if(nodox.hder === null){
+                nodox.hder = nuevo; 
+            }else{
+                this._agregar(nuevo, nodox.hder);
+            }
+        }
+    }
+
+    inOrder(){    
+        if(this.raiz === null){
+            return null; 
+        }else{
+            console.log(this.raiz); 
+            this._inOrderRec(this.raiz);  
+        }
+    }
+
+    _inOrderRec(nodox){
+        if(nodox.hizq !== null){
+            this._inOrderRec(nodox.hizq);
+        }
+        if(nodox.hder !== null){
+            this._inOrderRec(nodox.hder); 
+        }
     }
 
     preorderRestulado(expresion){
@@ -62,6 +104,32 @@ class arbolBinario{
 }
 
 let arbol = new arbolBinario();
-
+let nodo1 = new nodo(3);
+arbol.agregar(nodo1);
+nodo1 = new nodo('-');
+arbol.agregar(nodo1);
+nodo1 = new nodo(4);
+arbol.agregar(nodo1);
+nodo1 = new nodo('*');
+arbol.agregar(nodo1);
+nodo1 = new nodo(2);
+arbol.agregar(nodo1);
+nodo1 = new nodo('-');
+arbol.agregar(nodo1);
+nodo1 = new nodo(6);
+arbol.agregar(nodo1);
+nodo1 = new nodo('*');
+arbol.agregar(nodo1);
+nodo1 = new nodo(3);
+arbol.agregar(nodo1);
+nodo1 = new nodo('/');
+arbol.agregar(nodo1);
+nodo1 = new nodo(9);
+arbol.agregar(nodo1);
+nodo1 = new nodo('+');
+arbol.agregar(nodo1);
+nodo1 = new nodo(6);
+arbol.agregar(nodo1);
+console.log(arbol);
 console.log(arbol.preorderRestulado('+--3*42/*6396'));
 console.log(arbol.postorderResultado('342*-63*9/-6+'));
