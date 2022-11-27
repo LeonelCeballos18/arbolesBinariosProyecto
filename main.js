@@ -18,14 +18,12 @@ class arbolBinario{
         for(let i=0; i<expresion.length; i++){
             expA[i] = !isNaN(expresion[i]) ? parseInt(expresion[i]) : expresion[i];
         }
-        console.log(expA);
-        return 1;
-        for(let i=expA.length-1; i>0; i--){
+        while(expA.length > 0){
             if(!isNaN(expA[expA.length-1])){
                 expRes.push(expA.pop());
             }else{
                 aux = expA.pop();
-                expRes.push(this.operacion(aux, expA.pop(), expA.pop()))
+                expRes.push(this.operacion(aux, expRes.pop(), expRes.pop()))
             }
         }
         return expRes[0];
@@ -34,30 +32,36 @@ class arbolBinario{
     postorderResultado(expresion){
         let aux;
         let expRes = [];
+        let expA=[]
+        let n1;
         for(let i=0; i<expresion.length; i++){
-            aux = expresion.shift();
-            if(isNaN(expresion[aux])){
-                expRes.unshift(aux);
+            expA[i] = !isNaN(expresion[i]) ? parseInt(expresion[i]) : expresion[i];
+        }
+        while(expA.length > 0){
+            if(!isNaN(expA[0])){
+                expRes.push(expA.shift());
             }else{
-                expRes.unshift(this.operacion(aux, expRes.shift(), expRes.shift()))
+                aux = expA.shift();
+                n1 =expRes.pop();
+                expRes.push(this.operacion(aux, expRes.pop(), n1))
             }
         }
         return expRes[0];
     } 
 
     operacion(operador, n1, n2){
-        console.log(n1)
         if(operador === '/'){
-            return n1/n2;
+            return (n1)/(n2);
         }else if(operador === '*'){
-            return n1*n2;
+            return (n1)*(n2);
         }else if(operador === '+'){
-            return n1+n2;
+            return (n1)+(n2);
         }
-        return n1-n2;
+        return (n1)-(n2);
     }
 }
 
 let arbol = new arbolBinario();
 
-arbol.preorderRestulado('+--3*42/*6396');
+console.log(arbol.preorderRestulado('+--3*42/*6396'));
+console.log(arbol.postorderResultado('342*-63*9/-6+'));
