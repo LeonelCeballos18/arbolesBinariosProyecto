@@ -15,7 +15,37 @@ class arbolBinario{
         this.cadPost = '';
     }
 
-    agregar(nuevo){
+    agregar(expresion){
+        let nodos = this.nodoSeparado(expresion);
+        for(let i=0; i<nodos.length; i++){
+            if(this.primero == null){
+                this.primero = nodos[i];
+                this.primero.sig = nodos[i+1];
+            }else{
+                nodos[i].sig = nodos[i+1];
+                nodos[i].ant = nodos[i-1];
+            }                
+        }
+        console.log(nodos)
+        return nodos;
+    }
+
+    nodoSeparado(exp){
+        let nodos = [];
+        for(let i=0; i<exp.length; i++){
+            nodos.push(new nodo(exp[i]));
+        }
+        return nodos;
+    }
+
+    formarArbol(nodos){
+        aux = this.primero;
+        while(aux.sig != null){
+            aux = aux.sig;
+        }
+    }
+
+    /*agregar(nuevo){
         if(this.raiz === null){
             this.raiz = nuevo; 
         }else{
@@ -37,7 +67,7 @@ class arbolBinario{
                 this._agregar(nuevo, nodox.hder);
             }
         }
-    }
+    }*/
 
     preorderRestulado(expresion){
         let aux;
@@ -128,32 +158,6 @@ class arbolBinario{
 }
 
 let arbol = new arbolBinario();
-let nodo1 = new nodo(3);
-arbol.agregar(nodo1);
-nodo1 = new nodo('-');
-arbol.agregar(nodo1);
-nodo1 = new nodo(4);
-arbol.agregar(nodo1);
-nodo1 = new nodo('*');
-arbol.agregar(nodo1);
-nodo1 = new nodo(2);
-arbol.agregar(nodo1);
-nodo1 = new nodo('-');
-arbol.agregar(nodo1);
-nodo1 = new nodo(6);
-arbol.agregar(nodo1);
-nodo1 = new nodo('*');
-arbol.agregar(nodo1);
-nodo1 = new nodo(3);
-arbol.agregar(nodo1);
-nodo1 = new nodo('/');
-arbol.agregar(nodo1);
-nodo1 = new nodo(9);
-arbol.agregar(nodo1);
-nodo1 = new nodo('+');
-arbol.agregar(nodo1);
-nodo1 = new nodo(6);
-arbol.agregar(nodo1);
-console.log(arbol);
+arbol.agregar('3-4*2-6*3/9+6');
 console.log(arbol.preorderRestulado('+--3*42/*6396'));
 console.log(arbol.postorderResultado('342*-63*9/-6+'));
