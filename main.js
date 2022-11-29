@@ -2,13 +2,17 @@ class nodo{
     constructor(nuevo){
         this.nuevo = nuevo; 
         this.hizq = null; 
-        this.hder = null; 
+        this.hder = null;
+        this.sig = null;
+        this.ant = null;
     }
 }
 
 class arbolBinario{
     constructor(){
-        this.raiz = null; 
+        this.raiz = null;
+        this.cadPre = '';
+        this.cadPost = '';
     }
 
     agregar(nuevo){
@@ -35,24 +39,6 @@ class arbolBinario{
         }
     }
 
-    inOrder(){    
-        if(this.raiz === null){
-            return null; 
-        }else{
-            console.log(this.raiz); 
-            this._inOrderRec(this.raiz);  
-        }
-    }
-
-    _inOrderRec(nodox){
-        if(nodox.hizq !== null){
-            this._inOrderRec(nodox.hizq);
-        }
-        if(nodox.hder !== null){
-            this._inOrderRec(nodox.hder); 
-        }
-    }
-
     preorderRestulado(expresion){
         let aux;
         let expRes = [];
@@ -69,6 +55,44 @@ class arbolBinario{
             }
         }
         return expRes[0];
+    }
+
+    preorder(){
+        if(this.primero === null){
+            return null;
+        }else{
+            this._preorder(this.primero);
+        }
+        return this.cadPre;
+    }
+
+    _preorder(nodox){
+        this.cadPre += `${nodox.nuevo}`; 
+        if(nodox.hizq !== null){
+            this._preorder(nodox.hizq);
+        }
+        if(nodox.hder !== null){ 
+            this._preorder(nodox.hder);
+        }
+    }
+
+    postorder(){
+        if(this.primero === null){
+            return null;
+        }else{
+            this._postorder(this.primero);
+        }
+        return this.cadPost;
+    }
+
+    _postorder(nodox){
+        if(nodox.hizq !== null){
+            this._preorder(nodox.hizq);
+        }
+        if(nodox.hder !== null){ 
+            this._preorder(nodox.hder);
+        }
+        this.cadPost += `${nodox.nuevo}`;
     }
 
     postorderResultado(expresion){
